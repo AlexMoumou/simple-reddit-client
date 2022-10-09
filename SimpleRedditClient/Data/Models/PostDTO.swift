@@ -12,6 +12,7 @@ struct PostDTO: Identifiable, Equatable {
     var title: String
     var author: String
     var url: String
+    var thumbnail: String
     var subredditNamePrefixed: String
 }
 
@@ -22,6 +23,7 @@ extension PostDTO: Codable {
         case title
         case author
         case url
+        case thumbnail
         case subredditNamePrefixed = "subreddit_name_prefixed"
         
         case data
@@ -35,6 +37,7 @@ extension PostDTO: Codable {
         title = try dataContainer.decode(String.self, forKey: .title)
         author = try dataContainer.decode(String.self, forKey: .author)
         url = try dataContainer.decode(String.self, forKey: .url)
+        thumbnail = try dataContainer.decode(String.self, forKey: .thumbnail)
         subredditNamePrefixed = try dataContainer.decode(String.self, forKey: .subredditNamePrefixed)
     }
     
@@ -45,6 +48,6 @@ extension PostDTO: Codable {
 
 extension PostDTO {
     func mapToDomain() -> Post {
-        Post(id: id, title: title, author: author, url: url, subredditNamePrefixed: subredditNamePrefixed)
+        Post(id: id, title: title, author: author, url: url, thumbnail: thumbnail, subredditNamePrefixed: subredditNamePrefixed)
     }
 }

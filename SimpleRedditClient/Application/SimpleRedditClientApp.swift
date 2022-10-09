@@ -15,7 +15,6 @@ struct SimpleRedditClientApp: App {
     var body: some Scene {
         WindowGroup {
             DI.makeHomeView()
-//            ContentView()
         }
     }
 }

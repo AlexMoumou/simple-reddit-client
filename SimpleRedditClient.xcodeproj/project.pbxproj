@@ -10,6 +10,7 @@
 		5B53D2FE28999CAB007D30E3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B53D2FD28999CAB007D30E3 /* HomeView.swift */; };
 		5B53D30028999CBD007D30E3 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B53D2FF28999CBD007D30E3 /* HomeViewModel.swift */; };
 		5B53D30328999CE1007D30E3 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B53D30228999CE1007D30E3 /* PostDTO.swift */; };
+		5B55038328F2CB7B00931507 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B55038228F2CB7B00931507 /* PostView.swift */; };
 		5B654C8E289ADE7600BEC7F3 /* ListingDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B654C8D289ADE7600BEC7F3 /* ListingDTO.swift */; };
 		5B654C91289BB17F00BEC7F3 /* GetHomeListings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B654C90289BB17F00BEC7F3 /* GetHomeListings.swift */; };
 		5B90AE19288F178800A13B56 /* CustomWkWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90AE18288F178800A13B56 /* CustomWkWebView.swift */; };
@@ -52,6 +53,7 @@
 		5B53D2FD28999CAB007D30E3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		5B53D2FF28999CBD007D30E3 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		5B53D30228999CE1007D30E3 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
+		5B55038228F2CB7B00931507 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		5B654C8D289ADE7600BEC7F3 /* ListingDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingDTO.swift; sourceTree = "<group>"; };
 		5B654C90289BB17F00BEC7F3 /* GetHomeListings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeListings.swift; sourceTree = "<group>"; };
 		5B90AE18288F178800A13B56 /* CustomWkWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWkWebView.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		5B53D2FC28999C8E007D30E3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				5B55038128F2CB4C00931507 /* Views */,
 				5B53D2FD28999CAB007D30E3 /* HomeView.swift */,
 				5B53D2FF28999CBD007D30E3 /* HomeViewModel.swift */,
 			);
@@ -118,6 +121,14 @@
 				5BA9E95C28E4E33A005F09EC /* Post.swift */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		5B55038128F2CB4C00931507 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5B55038228F2CB7B00931507 /* PostView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		5B654C8C289ADE6500BEC7F3 /* Models */ = {
@@ -432,6 +443,7 @@
 				5B90AE19288F178800A13B56 /* CustomWkWebView.swift in Sources */,
 				5BF04DFD288D67DE00DB938F /* Endpoint.swift in Sources */,
 				5BA9E95928E4E043005F09EC /* ListingsRepo.swift in Sources */,
+				5B55038328F2CB7B00931507 /* PostView.swift in Sources */,
 				5B53D30328999CE1007D30E3 /* PostDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

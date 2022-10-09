@@ -16,7 +16,7 @@ struct HomeView: View {
             ScrollView {
                 LazyVStack {
                     ForEach (vm.postsList) { post in
-                        Text(post.title)
+                        PostView(post: post)
                     }.listStyle(.grouped)
                     
 //                    if(vm.after != nil) {

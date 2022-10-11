@@ -25,21 +25,21 @@ private let scopes = ["identity", "edit", "flair", "history", "modconfig", "modf
 /// API Endpoints
 enum RedditApiEndpoint: Endpoint {
     
-    case best
+    case best(String)
+    case top(String)
+    case rising(String)
+    case controversial(String)
+    case findSubreddits(String)
     case login
-    case characters(Int)
-    case character(Int)
-    case locations
-    case location(Int)
 
     var url: URL {
         switch self {
-        case .best: return URL(string: "best.json", relativeTo: baseURL)!
-        case .login: return URL(string: "/api/v1/authorize?client_id=\(clientID)&response_type=token&state=unique&redirect_uri=\(redirectURI)&scope=\(scopes.joined(separator: ","))", relativeTo: baseURL)!
-        case .characters(let page): return URL(string: "character/?page=\(page)", relativeTo: baseURL)!
-        case .character(let id): return URL(string: "character/\(id)", relativeTo: baseURL)!
-        case .locations: return URL(string: "location", relativeTo: baseURL)!
-        case .location(let id): return URL(string: "location/\(id)", relativeTo: baseURL)!
+            case .best(let after): return URL(string: "best.json?after=\(after)", relativeTo: baseURL)!
+            case .top(let after): return URL(string: "top.json?after=\(after)", relativeTo: baseURL)!
+            case .rising(let after): return URL(string: "rising.json?after=\(after)", relativeTo: baseURL)!
+            case .controversial(let after): return URL(string: "controversial.json?after=\(after)", relativeTo: baseURL)!
+            case .findSubreddits(let query): return URL(string: "subreddits/search.json?q=\(query)", relativeTo: baseURL)!
+            case .login: return URL(string: "/api/v1/authorize?client_id=\(clientID)&response_type=token&state=unique&redirect_uri=\(redirectURI)&scope=\(scopes.joined(separator: ","))", relativeTo: baseURL)!
         }
     }
 }

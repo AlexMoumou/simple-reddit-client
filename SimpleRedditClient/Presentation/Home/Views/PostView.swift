@@ -28,7 +28,7 @@ struct PostView: View {
                                     .frame(maxWidth: .infinity)
                            },
                            placeholder: {
-                               ProgressView()
+                    Color.gray.padding().frame(width: 300, height: 300, alignment: .center)
                            })
             }.frame(maxWidth: .infinity)
             Spacer()

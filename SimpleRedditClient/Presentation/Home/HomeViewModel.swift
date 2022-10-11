@@ -27,7 +27,7 @@ class HomeViewModel: ObservableObject {
         getHomeListings.execute(after: after)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] response in
-                self?.postsList = response.posts
+                self?.postsList += response.posts
                 self?.after = response.info.after
             })
             .store(in: &cancelables)

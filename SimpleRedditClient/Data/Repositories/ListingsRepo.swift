@@ -19,7 +19,7 @@ final class ListingsRepo {
 
 extension ListingsRepo: IListingsRepo {
     func getBestPosts(after: String?) -> AnyPublisher<HomeListingState, Error> {
-        restClient.get(RedditApiEndpoint.best).map { (response: ListingDTO) in
+        restClient.get(RedditApiEndpoint.best(after ?? "")).map { (response: ListingDTO) in
             HomeListingState(info: Info(before: response.data.before, after: response.data.after), posts: response.data.posts.map { $0.mapToDomain() })
         }.eraseToAnyPublisher()
     }

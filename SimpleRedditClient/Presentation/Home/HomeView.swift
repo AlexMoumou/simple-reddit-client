@@ -19,13 +19,13 @@ struct HomeView: View {
                         PostView(post: post)
                     }.listStyle(.grouped)
                     
-//                    if(vm.after != nil) {
-//                        ProgressView()
-//                            .progressViewStyle(CircularProgressViewStyle())
-//                            .onAppear {
-//                                vm.loadListings()
-//                            }
-//                    }
+                    if(vm.after != nil) {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .onAppear {
+                                vm.loadListings()
+                            }
+                    }
                 }.navigationTitle("Best Reddit Posts")
             }
         }

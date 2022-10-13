@@ -13,13 +13,15 @@ struct PostView: View {
     
     var body: some View {
         VStack {
+            Divider()
             VStack (alignment: .leading, spacing: 5){
                 Text(post.subredditNamePrefixed)
                 Text(post.author)
+                Text(post.title).bold().padding(EdgeInsets.init(top: 10, leading: 0, bottom: 0, trailing: 0))
             }.frame(maxWidth: .infinity,
                     alignment: .leading)
             .padding()
-            Text(post.title).bold().padding(EdgeInsets.init(top: 0, leading: 5, bottom: 10, trailing: 5))
+            
             VStack{
                 AsyncImage(url: URL(string: post.url),
                            content: { image in
@@ -33,7 +35,6 @@ struct PostView: View {
             }.frame(maxWidth: .infinity)
             Spacer()
         }.frame(maxWidth: .infinity)
-        
     }
 }
 

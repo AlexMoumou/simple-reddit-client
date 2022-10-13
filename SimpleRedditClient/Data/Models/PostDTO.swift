@@ -14,6 +14,8 @@ struct PostDTO: Identifiable, Equatable {
     var url: String
     var thumbnail: String
     var subredditNamePrefixed: String
+    var isVideo: Bool
+    var video: VideoDTO?
 }
 
 // MARK: - Decodable
@@ -25,12 +27,19 @@ extension PostDTO: Codable {
         case url
         case thumbnail
         case subredditNamePrefixed = "subreddit_name_prefixed"
-        
+        case isVideo = "is_video"
+        case media
         case data
+    }
+    
+    enum MediaKeys: String, CodingKey {
+        
+        case video = "reddit_video"
     }
     
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        
         let dataContainer = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
         
         id = try dataContainer.decode(String.self, forKey: .id)
@@ -39,15 +48,20 @@ extension PostDTO: Codable {
         url = try dataContainer.decode(String.self, forKey: .url)
         thumbnail = try dataContainer.decode(String.self, forKey: .thumbnail)
         subredditNamePrefixed = try dataContainer.decode(String.self, forKey: .subredditNamePrefixed)
+        isVideo = try dataContainer.decode(Bool.self, forKey: .isVideo)
+
+        let mediaContainer = try? dataContainer.nestedContainer(keyedBy: MediaKeys.self, forKey: .media)
+        
+        if mediaContainer != nil {
+            video = try? mediaContainer?.decode(VideoDTO.self, forKey: .video)
+        }
     }
     
-    func encode(to encoder: Encoder) throws {
-        
-    }
+    func encode(to encoder: Encoder) throws {}
 }
 
 extension PostDTO {
     func mapToDomain() -> Post {
-        Post(id: id, title: title, author: author, url: url, thumbnail: thumbnail, subredditNamePrefixed: subredditNamePrefixed)
+        Post(id: id, title: title, author: author, url: url, thumbnail: thumbnail, subredditNamePrefixed: subredditNamePrefixed, isVideo: isVideo, videoURL: video?.url ?? "")
     }
 }

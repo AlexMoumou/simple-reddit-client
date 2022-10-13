@@ -14,6 +14,8 @@ struct Post: Equatable, Identifiable {
     var url: String
     var thumbnail: String
     var subredditNamePrefixed: String
+    var isVideo: Bool
+    var videoURL: String
 }
 
 extension Post {
@@ -23,7 +25,9 @@ extension Post {
                     author: "Muld3r",
                     url: "http://cdn.esawebb.org/archives/images/screen/jupiter-auroras1.jpg",
                     thumbnail: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg",
-                    subredditNamePrefixed: "r/interestingasfuck"
+                    subredditNamePrefixed: "r/interestingasfuck",
+                    isVideo: false,
+                    videoURL: ""
         )
     }
     
@@ -33,14 +37,18 @@ extension Post {
         author: String? = nil,
         url: String? = nil,
         thumbnail: String? = nil,
-        subredditNamePrefixed: String? = nil
+        subredditNamePrefixed: String? = nil,
+        isVideo: Bool? = nil,
+        videoURL: String? = nil
     ) -> Post {
         return Post(id: id ?? self.id,
                     title: title ?? self.title,
                     author: author ?? self.author,
                     url: url ?? self.url,
                     thumbnail: thumbnail ?? self.thumbnail,
-                    subredditNamePrefixed: subredditNamePrefixed ?? self.subredditNamePrefixed
+                    subredditNamePrefixed: subredditNamePrefixed ?? self.subredditNamePrefixed,
+                    isVideo: isVideo ?? self.isVideo,
+                    videoURL: videoURL ?? self.videoURL
         )
     }
 }

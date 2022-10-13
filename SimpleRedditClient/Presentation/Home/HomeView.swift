@@ -14,6 +14,9 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             ScrollView {
+                PullToRefresh(coordinateSpaceName: "pullToRefresh") {
+                    vm.refreshListings()
+                }
                 LazyVStack {
                     ForEach (vm.postsList) { post in
                         PostView(post: post)
@@ -26,8 +29,9 @@ struct HomeView: View {
                                 vm.loadListings()
                             }
                     }
-                }.navigationTitle("Best Reddit Posts")
-            }
+                }
+            }.coordinateSpace(name: "pullToRefresh")
+                .navigationTitle("Best Reddit Posts")
         }
     }
 }

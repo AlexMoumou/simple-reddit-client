@@ -23,15 +23,9 @@ struct PostView: View {
             .padding()
             
             VStack{
-                AsyncImage(url: URL(string: post.url),
-                           content: { image in
-                               image.resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(maxWidth: .infinity)
-                           },
-                           placeholder: {
-                    Color.gray.padding().frame(width: 300, height: 300, alignment: .center)
-                           })
+                post.isVideo ?
+                AnyView(RedditVideoView(url: post.videoURL)):
+                AnyView(RedditImageView(url: post.url))
             }.frame(maxWidth: .infinity)
             Spacer()
         }.frame(maxWidth: .infinity)

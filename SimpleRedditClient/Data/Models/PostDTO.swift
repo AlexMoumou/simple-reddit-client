@@ -13,6 +13,7 @@ struct PostDTO: Identifiable, Equatable {
     var author: String
     var url: String
     var thumbnail: String
+    var selftext: String?
     var subredditNamePrefixed: String
     var isVideo: Bool
     var video: VideoDTO?
@@ -26,6 +27,7 @@ extension PostDTO: Codable {
         case author
         case url
         case thumbnail
+        case selftext
         case subredditNamePrefixed = "subreddit_name_prefixed"
         case isVideo = "is_video"
         case media
@@ -47,6 +49,7 @@ extension PostDTO: Codable {
         author = try dataContainer.decode(String.self, forKey: .author)
         url = try dataContainer.decode(String.self, forKey: .url)
         thumbnail = try dataContainer.decode(String.self, forKey: .thumbnail)
+        selftext = try? dataContainer.decode(String.self, forKey: .selftext)
         subredditNamePrefixed = try dataContainer.decode(String.self, forKey: .subredditNamePrefixed)
         isVideo = try dataContainer.decode(Bool.self, forKey: .isVideo)
 
@@ -62,6 +65,6 @@ extension PostDTO: Codable {
 
 extension PostDTO {
     func mapToDomain() -> Post {
-        Post(id: id, title: title, author: author, url: url, thumbnail: thumbnail, subredditNamePrefixed: subredditNamePrefixed, isVideo: isVideo, videoURL: video?.url ?? "")
+        Post(id: id, title: title, author: author, url: url, thumbnail: thumbnail, selftext: selftext, subredditNamePrefixed: subredditNamePrefixed, isVideo: isVideo, videoURL: video?.url ?? "")
     }
 }

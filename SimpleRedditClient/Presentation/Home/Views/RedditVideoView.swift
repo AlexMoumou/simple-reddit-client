@@ -19,7 +19,11 @@ struct RedditVideoView: View {
             .aspectRatio(contentMode: .fit)
             .frame(maxWidth: .infinity)
                     .onAppear() {
-                        player = AVPlayer(url: URL(string: url)!)
+                        let playerItem = AVPlayerItem(url: URL(string: url)!)
+                        player = AVPlayer(playerItem: playerItem)
+                    }
+                    .onDisappear() {
+                        player.pause()
                     }
     }
 }

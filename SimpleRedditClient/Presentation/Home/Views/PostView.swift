@@ -17,9 +17,13 @@ struct PostView: View {
             VStack (alignment: .leading, spacing: 5){
                 Text(post.subredditNamePrefixed)
                 Text(post.author)
-                Text(post.title).bold().padding(EdgeInsets.init(top: 10, leading: 0, bottom: 0, trailing: 0))
-                if post.selftext != nil {
-                    Text(post.selftext!).italic().padding(EdgeInsets.init(top: 10, leading: 0, bottom: 0, trailing: 0))
+                Text(post.title)
+                    .bold()
+                    .padding(EdgeInsets.init(top: 10, leading: 0, bottom: 0, trailing: 0))
+                if post.selftext != "" && post.selftext != nil {
+                    Text(post.selftext!)
+                        .italic()
+                        .padding(EdgeInsets.init(top: 10, leading: 0, bottom: 0, trailing: 0))
                 }
             }.frame(maxWidth: .infinity,
                     alignment: .leading)
@@ -30,7 +34,11 @@ struct PostView: View {
                 } else {
                     let link = "[\(post.url)](\(post.url))"
                     HStack {
-                        Text(.init(link)).truncationMode(.tail).lineLimit(2).padding(EdgeInsets.init(top: 0, leading: 10, bottom: 5, trailing: 10)).frame(alignment: .leading)
+                        Text(.init(link))
+                            .truncationMode(.tail)
+                            .lineLimit(2)
+                            .padding(EdgeInsets.init(top: 0, leading: 10, bottom: 5, trailing: 10))
+                            .frame(alignment: .leading)
                         Spacer()
                     }
                 }

@@ -21,7 +21,7 @@ extension VideoDTO: Codable {
         case id
         case width
         case height
-        case url = "fallback_url"
+        case url = "hls_url"
         case isGif = "is_gif"
     }
     

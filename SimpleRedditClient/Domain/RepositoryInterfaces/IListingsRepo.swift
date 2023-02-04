@@ -10,4 +10,5 @@ import Combine
 
 protocol IListingsRepo {
     func getBestPosts(after: String?) -> AnyPublisher<HomeListingState, Error>
+    func findSubreddits(after: String?, term: String) -> AnyPublisher<SearchState, Error>
 }

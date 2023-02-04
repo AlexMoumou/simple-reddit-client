@@ -25,9 +25,10 @@ struct PostView: View {
                         .italic()
                         .padding(EdgeInsets.init(top: 10, leading: 0, bottom: 0, trailing: 0))
                 }
-            }.frame(maxWidth: .infinity,
-                    alignment: .leading)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
+            
             VStack{
                 if post.url.hasSuffix(".jpg") || post.url.hasSuffix(".png") {
                     RedditImageView(url: post.url)
@@ -46,7 +47,9 @@ struct PostView: View {
                 if post.isVideo {
                     RedditVideoView(url: post.videoURL)
                 }
+                
             }.frame(maxWidth: .infinity)
+            
             Spacer()
         }.frame(maxWidth: .infinity)
     }

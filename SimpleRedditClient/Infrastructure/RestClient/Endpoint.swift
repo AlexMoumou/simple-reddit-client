@@ -29,7 +29,7 @@ enum RedditApiEndpoint: Endpoint {
     case top(String)
     case rising(String)
     case controversial(String)
-    case findSubreddits(String)
+    case findSubreddits(String, String)
     case login
 
     var url: URL {
@@ -38,7 +38,7 @@ enum RedditApiEndpoint: Endpoint {
             case .top(let after): return URL(string: "top.json?after=\(after)", relativeTo: baseURL)!
             case .rising(let after): return URL(string: "rising.json?after=\(after)", relativeTo: baseURL)!
             case .controversial(let after): return URL(string: "controversial.json?after=\(after)", relativeTo: baseURL)!
-            case .findSubreddits(let query): return URL(string: "subreddits/search.json?q=\(query)", relativeTo: baseURL)!
+            case .findSubreddits(let query, let after): return URL(string: "subreddits/search.json?q=\(query)&after=\(after)", relativeTo: baseURL)!
             case .login: return URL(string: "/api/v1/authorize?client_id=\(clientID)&response_type=token&state=unique&redirect_uri=\(redirectURI)&scope=\(scopes.joined(separator: ","))", relativeTo: baseURL)!
         }
     }

@@ -23,4 +23,10 @@ extension ListingsRepo: IListingsRepo {
             HomeListingState(info: Info(before: response.data.before, after: response.data.after), posts: response.data.posts.map { $0.mapToDomain() })
         }.eraseToAnyPublisher()
     }
+    
+    func findSubreddits(after: String?, term: String) -> AnyPublisher<SearchState, Error> {
+        restClient.get(RedditApiEndpoint.findSubreddits(term, after ?? "")).map { (response: SubredditsSearchDTO) in
+            SearchState(info: Info(before: response.data.before, after: response.data.after), subreddits: response.data.subreddits.map { $0.mapToDomain() })
+        }.eraseToAnyPublisher()
+    }
 }

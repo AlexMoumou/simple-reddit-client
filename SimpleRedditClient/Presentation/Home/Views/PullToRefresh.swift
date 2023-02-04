@@ -10,7 +10,7 @@ import SwiftUI
 struct PullToRefresh: View {
     
     var coordinateSpaceName: String
-    var onRefresh: ()->Void
+    var onRefresh: () -> Void
     
     @State var needRefresh: Bool = false
     

@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 
-/// Observe `Character`s
 protocol IGetHomeListingsUC {
     func execute(after: String?) -> AnyPublisher<HomeListingState, Error>
 }

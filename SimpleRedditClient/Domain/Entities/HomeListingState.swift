@@ -11,9 +11,3 @@ struct HomeListingState: Equatable {
     let info: Info
     let posts: [Post]
 }
-
-// MARK: - Info
-struct Info: Equatable {
-    let before: String?
-    let after: String
-}

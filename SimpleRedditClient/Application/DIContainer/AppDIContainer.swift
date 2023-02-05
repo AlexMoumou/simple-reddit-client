@@ -19,6 +19,10 @@ final class AppDIContainer {
         return GetHomeListingsUC(listingsRepo: makeListingsRepository())
     }
     
+    func makeSearchSubredditsUseCase() -> ISearchSubredditsUC {
+        return SeachSubredditsUC(listingsRepo: makeListingsRepository())
+    }
+    
     // MARK: - Repositories
     
     func makeListingsRepository() -> ListingsRepo {
@@ -31,9 +35,17 @@ final class AppDIContainer {
         return HomeViewModel(getHomeListings: makeGetHomeListingsUseCase())
     }
     
+    func makeSearchSubredditsViewModel() -> SearchSubredditsViewModel {
+        return SearchSubredditsViewModel(getSubreddits: makeSearchSubredditsUseCase())
+    }
+    
     // MARK: - Views
     
     func makeHomeView() -> HomeView {
         return HomeView(vm: makeHomeViewModel())
+    }
+    
+    func makeSearchSubredditsView() -> SearchSubredditsView {
+        return SearchSubredditsView(vm: self.makeSearchSubredditsViewModel())
     }
 }

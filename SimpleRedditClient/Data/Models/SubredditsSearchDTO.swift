@@ -21,7 +21,7 @@ struct SubredditsSearchDTO: Decodable {
 // MARK: - ListingData
 struct SubredditsData: Decodable {
     let before: String?
-    let after: String
+    let after: String?
     let subreddits: [SubredditDTO]
     
     enum CodingKeys: String, CodingKey {

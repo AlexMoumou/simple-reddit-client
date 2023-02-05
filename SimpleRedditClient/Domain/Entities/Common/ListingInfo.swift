@@ -10,5 +10,5 @@ import Foundation
 // MARK: - Info
 struct Info: Equatable {
     let before: String?
-    let after: String
+    let after: String?
 }

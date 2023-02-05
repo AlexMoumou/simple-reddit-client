@@ -32,6 +32,12 @@ struct HomeView: View {
                 }
             }.coordinateSpace(name: "pullToRefresh")
                 .navigationTitle("Best Reddit Posts")
+                .toolbar {
+                    NavigationLink(destination: AppDIContainer().makeSearchSubredditsView()) {
+                        Image(systemName: "magnifyingglass")
+                    }
+                    
+                }
         }
     }
 }

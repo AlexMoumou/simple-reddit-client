@@ -17,11 +17,9 @@ struct SearchSubredditsView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVStack {
+                LazyVStack(alignment: .leading) {
                     ForEach(vm.subredditsList, id: \.id) { sub in
-                        HStack(alignment: .center) {
-                            Text(sub.title)
-                        }
+                        SubredditTile(subreddit: sub)
                     }
                 }
             }
@@ -31,14 +29,22 @@ struct SearchSubredditsView: View {
                     .frame(width: 100, height: 55)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding([.leading, .trailing], 5)
-//                    .background(Color(UIColor.black.withAlphaComponent(0.1)))
                     .cornerRadius(16)
                     .scaledToFit()
                     .onChange(of: term.debouncedText) { text in
                         print(text)
-                        vm.loadListings(query: text)
+                        vm.loadListings(query: text.sanitized)
                     }
         }
+    }
+}
+
+public extension String {
+    var sanitized: String {
+        return self
+            .replacingOccurrences(of: "[^a-zA-Z0-9]", with: " ", options: .regularExpression)
+            .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+            .replacingOccurrences(of: " ", with: "")
     }
 }
 

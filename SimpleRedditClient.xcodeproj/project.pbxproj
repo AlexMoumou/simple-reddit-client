@@ -31,6 +31,7 @@
 		5BD54298298E91A7000B35BF /* SubredditsSearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD54297298E91A7000B35BF /* SubredditsSearchDTO.swift */; };
 		5BD5429B298E9665000B35BF /* SearchSubredditsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5429A298E9665000B35BF /* SearchSubredditsViewModel.swift */; };
 		5BD5429D298EB2EB000B35BF /* SearchSubredditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5429C298EB2EB000B35BF /* SearchSubredditsView.swift */; };
+		5BD542A029916F20000B35BF /* SubredditTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5429F29916F20000B35BF /* SubredditTile.swift */; };
 		5BF04DCA288D524B00DB938F /* SimpleRedditClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF04DC9288D524B00DB938F /* SimpleRedditClientApp.swift */; };
 		5BF04DCC288D524B00DB938F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF04DCB288D524B00DB938F /* ContentView.swift */; };
 		5BF04DCE288D524D00DB938F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BF04DCD288D524D00DB938F /* Assets.xcassets */; };
@@ -86,6 +87,7 @@
 		5BD54297298E91A7000B35BF /* SubredditsSearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditsSearchDTO.swift; sourceTree = "<group>"; };
 		5BD5429A298E9665000B35BF /* SearchSubredditsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSubredditsViewModel.swift; sourceTree = "<group>"; };
 		5BD5429C298EB2EB000B35BF /* SearchSubredditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSubredditsView.swift; sourceTree = "<group>"; };
+		5BD5429F29916F20000B35BF /* SubredditTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditTile.swift; sourceTree = "<group>"; };
 		5BF04DC6288D524B00DB938F /* SimpleRedditClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleRedditClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF04DC9288D524B00DB938F /* SimpleRedditClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRedditClientApp.swift; sourceTree = "<group>"; };
 		5BF04DCB288D524B00DB938F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -227,10 +229,19 @@
 		5BD54299298E95E9000B35BF /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				5BD5429E29916EF5000B35BF /* Views */,
 				5BD5429C298EB2EB000B35BF /* SearchSubredditsView.swift */,
 				5BD5429A298E9665000B35BF /* SearchSubredditsViewModel.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		5BD5429E29916EF5000B35BF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5BD5429F29916F20000B35BF /* SubredditTile.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		5BF04DBD288D524B00DB938F = {
@@ -501,6 +512,7 @@
 				5B29C773298C2B4F0001651B /* SearchSubredditsUC.swift in Sources */,
 				5B53D2FE28999CAB007D30E3 /* HomeView.swift in Sources */,
 				5B90AE19288F178800A13B56 /* CustomWkWebView.swift in Sources */,
+				5BD542A029916F20000B35BF /* SubredditTile.swift in Sources */,
 				5BD5429B298E9665000B35BF /* SearchSubredditsViewModel.swift in Sources */,
 				5B1CCB7928F8766900A66D0F /* PullToRefresh.swift in Sources */,
 				5BF04DFD288D67DE00DB938F /* Endpoint.swift in Sources */,
@@ -672,6 +684,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SimpleRedditClient/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -704,6 +717,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SimpleRedditClient/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

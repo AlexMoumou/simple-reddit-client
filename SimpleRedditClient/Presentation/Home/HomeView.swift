@@ -15,7 +15,7 @@ struct HomeView: View {
         NavigationView {
             ScrollView {
                 PullToRefresh(coordinateSpaceName: "pullToRefresh") {
-                    vm.refreshListings()
+                    vm.send(action: .refresh)
                 }
                 LazyVStack {
                     ForEach (vm.postsList) { post in
@@ -26,17 +26,18 @@ struct HomeView: View {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle())
                             .onAppear {
-                                vm.loadListings()
+                                vm.send(action: .load)
                             }
                     }
                 }
             }.coordinateSpace(name: "pullToRefresh")
                 .navigationTitle("Best Reddit Posts")
                 .toolbar {
-                    NavigationLink(destination: AppDIContainer().makeSearchSubredditsView()) {
+                    Button {
+                        vm.send(action: .tapSearch)
+                    } label: {
                         Image(systemName: "magnifyingglass")
                     }
-                    
                 }
         }
     }

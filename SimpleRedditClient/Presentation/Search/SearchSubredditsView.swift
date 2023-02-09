@@ -32,8 +32,7 @@ struct SearchSubredditsView: View {
                     .cornerRadius(16)
                     .scaledToFit()
                     .onChange(of: term.debouncedText) { text in
-                        print(text)
-                        vm.loadListings(query: text.sanitized)
+                        vm.send(action: .load(text.sanitized))
                     }
         }
     }

@@ -9,27 +9,36 @@ import Foundation
 import Combine
 
 protocol ISearchSubredditsViewModel: ObservableObject {
-    func loadListings(query: String)
+    func send(action: SearchSubredditsViewModelAction)
     var subredditsList: [Subreddit] { get set }
     var term: String { get set }
+}
+
+enum SearchSubredditsViewModelAction {
+    case load(String)
 }
 
 class SearchSubredditsViewModel: ISearchSubredditsViewModel {
     
     private let getSubs: ISearchSubredditsUC
+    private var cancelables = [AnyCancellable]()
     
     @Published var subredditsList: [Subreddit] = []
     @Published var after: String?
     @Published var term: String = ""
     
-    private var cancelables = [AnyCancellable]()
-    
     init(getSubreddits: ISearchSubredditsUC) {
         self.getSubs = getSubreddits
     }
     
+    func send(action: SearchSubredditsViewModelAction) {
+        switch action {
+            case .load(let query):
+                loadListings(query: query)
+        }
+    }
     
-    func loadListings(query: String) {
+    private func loadListings(query: String) {
         guard !query.isEmpty else {
             self.subredditsList = []
             self.after = nil

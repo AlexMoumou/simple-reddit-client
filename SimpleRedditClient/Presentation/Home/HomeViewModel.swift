@@ -8,22 +8,42 @@
 import Foundation
 import Combine
 
+enum HomeViewModelResult {
+    case goToSearch
+}
+
+enum HomeViewModelAction {
+    case load
+    case refresh
+    case tapSearch
+}
+
 class HomeViewModel: ObservableObject {
     
     private let getHomeListings: IGetHomeListingsUC
-    
     @Published var postsList: [Post] = []
+    @Published var after: String?
     
     private var cancelables = [AnyCancellable]()
-    @Published var after: String?
+    var callback: (@MainActor (HomeViewModelResult) -> Void)?
     
     init(getHomeListings: IGetHomeListingsUC) {
         self.getHomeListings = getHomeListings
         loadListings()
     }
     
+    func send(action: HomeViewModelAction) {
+        switch action {
+        case .load:
+            loadListings()
+        case .refresh:
+            refreshListings()
+        case .tapSearch:
+            Task { await callback?(.goToSearch) }
+        }
+    }
     
-    func loadListings() {
+    private func loadListings() {
         getHomeListings.execute(after: after)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] response in
@@ -33,7 +53,7 @@ class HomeViewModel: ObservableObject {
             .store(in: &cancelables)
     }
     
-    func refreshListings() {
+    private func refreshListings() {
         getHomeListings.execute(after: nil)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] response in

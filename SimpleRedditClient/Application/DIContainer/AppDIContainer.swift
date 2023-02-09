@@ -9,25 +9,28 @@ import Foundation
 
 final class AppDIContainer {
     
+    public static let shared = AppDIContainer()
+    
     // MARK: - HTTP Client
     
     lazy var client: RestClient = RestClient()
+    lazy var listingsRepo: ListingsRepo = ListingsRepo(restClient: client)
     
     // MARK: - Use Cases
     
     func makeGetHomeListingsUseCase() -> IGetHomeListingsUC {
-        return GetHomeListingsUC(listingsRepo: makeListingsRepository())
+        return GetHomeListingsUC(listingsRepo: listingsRepo)
     }
     
     func makeSearchSubredditsUseCase() -> ISearchSubredditsUC {
-        return SeachSubredditsUC(listingsRepo: makeListingsRepository())
+        return SeachSubredditsUC(listingsRepo: listingsRepo)
     }
     
     // MARK: - Repositories
     
-    func makeListingsRepository() -> ListingsRepo {
-        return ListingsRepo(restClient: client)
-    }
+//    func makeListingsRepository() -> ListingsRepo {
+//        return ListingsRepo(restClient: client)
+//    }
     
     // MARK: - ViewModels
     
@@ -46,6 +49,6 @@ final class AppDIContainer {
     }
     
     func makeSearchSubredditsView() -> SearchSubredditsView {
-        return SearchSubredditsView(vm: self.makeSearchSubredditsViewModel())
+        return SearchSubredditsView(vm: makeSearchSubredditsViewModel())
     }
 }

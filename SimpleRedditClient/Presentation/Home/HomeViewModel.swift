@@ -8,6 +8,13 @@
 import Foundation
 import Combine
 
+protocol IHomeViewModel: ObservableObject {
+    func send(action: HomeViewModelAction)
+    var postsList: [Post] { get set }
+    var after: String? { get set }
+    var callback: (@MainActor (HomeViewModelResult) -> Void)? { get set }
+}
+
 enum HomeViewModelResult {
     case goToSearch
 }
@@ -18,7 +25,7 @@ enum HomeViewModelAction {
     case tapSearch
 }
 
-class HomeViewModel: ObservableObject {
+class HomeViewModel: IHomeViewModel {
     
     private let getHomeListings: IGetHomeListingsUC
     @Published var postsList: [Post] = []

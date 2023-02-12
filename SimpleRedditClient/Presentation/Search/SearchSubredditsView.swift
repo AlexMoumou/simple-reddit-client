@@ -14,16 +14,15 @@ struct SearchSubredditsView: View {
     @ObservedObject var vm: SearchSubredditsViewModel
     @StateObject var term = DebounceObject()
     
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.dismissSearch) private var dismissSearch
-    @Environment(\.isSearching) private var isSearching
-    
     var body: some View {
         NavigationView {
             ScrollView {
                 LazyVStack(alignment: .leading) {
                     ForEach(vm.subredditsList, id: \.id) { sub in
                         SubredditTile(subreddit: sub)
+                            .onTapGesture {
+                                vm.send(action: .openSub(sub))
+                            }
                     }
                 }
             }

@@ -29,11 +29,18 @@ class SearchSubredditsCoordinator: Coordinator {
             switch result {
             case .goToHome:
                 self.callback?(.goToHome)
+            case .goToSubreddit(let sub):
+                self.showSubreddit(sub: sub)
             }
         }
         let vc = SearchSubredditsView(vm: vm)
         let host = UIHostingController(rootView: vc)
         host.navigationItem.hidesBackButton = true
         navigationController.pushViewController(host, animated: true)
+    }
+    
+    func showSubreddit(sub: Subreddit) {
+        //TODO: create and open subreddit page
+        print("Opening subreddit with title:\(sub.title)")
     }
 }

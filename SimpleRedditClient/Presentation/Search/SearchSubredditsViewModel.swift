@@ -17,10 +17,12 @@ protocol ISearchSubredditsViewModel: ObservableObject {
 enum SearchSubredditsViewModelAction {
     case load(String)
     case cancel
+    case openSub(Subreddit)
 }
 
 enum SearchSubredditsResult {
     case goToHome
+    case goToSubreddit(Subreddit)
 }
 
 class SearchSubredditsViewModel: ISearchSubredditsViewModel {
@@ -41,8 +43,10 @@ class SearchSubredditsViewModel: ISearchSubredditsViewModel {
         switch action {
             case .load(let query):
                 loadListings(query: query)
-            case.cancel:
-                Task { await callback?(.goToHome) } 
+            case .cancel:
+                Task { await callback?(.goToHome) }
+            case .openSub(let sub):
+                Task { await callback?(.goToSubreddit(sub))}
         }
     }
     

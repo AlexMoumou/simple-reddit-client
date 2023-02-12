@@ -54,7 +54,7 @@ class AppCoordinator: Coordinator {
             switch result {
             case .goToHome:
                 self.childCoordinators[.Search] = nil
-                self.showHome()
+                self.navigationController.popViewController(animated: true)
             }
         }
         

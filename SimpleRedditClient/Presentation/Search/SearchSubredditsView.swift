@@ -14,6 +14,10 @@ struct SearchSubredditsView: View {
     @ObservedObject var vm: SearchSubredditsViewModel
     @StateObject var term = DebounceObject()
     
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismissSearch) private var dismissSearch
+    @Environment(\.isSearching) private var isSearching
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -23,18 +27,27 @@ struct SearchSubredditsView: View {
                     }
                 }
             }
-        }.toolbar{
-            TextField("Search", text: $term.text)
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                TextField("Search", text: $term.text)
                     .font(.body)
-                    .frame(width: 100, height: 55)
+                    .frame(height: 55)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding([.leading, .trailing], 5)
                     .cornerRadius(16)
-                    .scaledToFit()
+                    .scaledToFill()
                     .onChange(of: term.debouncedText) { text in
                         vm.send(action: .load(text.sanitized))
                     }
-        }
+            }
+            ToolbarItem(placement: .destructiveAction) {
+                Button("Cancel") {
+                    vm.send(action: .cancel)
+                }
+            }
+        }.padding()
     }
 }
 

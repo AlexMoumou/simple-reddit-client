@@ -12,34 +12,33 @@ struct HomeView: View {
     @ObservedObject var vm: HomeViewModel
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                PullToRefresh(coordinateSpaceName: "pullToRefresh") {
-                    vm.send(action: .refresh)
-                }
-                LazyVStack {
-                    ForEach (vm.postsList) { post in
-                        PostView(post: post)
-                    }.listStyle(.grouped)
+        ScrollView {
+            PullToRefresh(coordinateSpaceName: "pullToRefresh") {
+                vm.send(action: .refresh)
+            }
+            LazyVStack {
+                ForEach (vm.postsList) { post in
+                    PostView(post: post)
+                }.listStyle(.grouped)
                     
-                    if(vm.after != nil) {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                            .onAppear {
-                                vm.send(action: .load)
-                            }
-                    }
+                if(vm.after != nil) {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .onAppear {
+                            vm.send(action: .load)
+                        }
                 }
-            }.coordinateSpace(name: "pullToRefresh")
-                .navigationTitle("Best Reddit Posts")
-                .toolbar {
-                    Button {
-                        vm.send(action: .tapSearch)
-                    } label: {
-                        Image(systemName: "magnifyingglass")
-                    }
+            }
+        }.coordinateSpace(name: "pullToRefresh")
+            .navigationTitle("Best Reddit Posts")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                Button {
+                    vm.send(action: .tapSearch)
+                } label: {
+                    Image(systemName: "magnifyingglass")
                 }
-        }
+            }
     }
 }
 

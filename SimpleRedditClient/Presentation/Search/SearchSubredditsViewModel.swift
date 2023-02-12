@@ -16,12 +16,18 @@ protocol ISearchSubredditsViewModel: ObservableObject {
 
 enum SearchSubredditsViewModelAction {
     case load(String)
+    case cancel
+}
+
+enum SearchSubredditsResult {
+    case goToHome
 }
 
 class SearchSubredditsViewModel: ISearchSubredditsViewModel {
     
     private let getSubs: ISearchSubredditsUC
     private var cancelables = [AnyCancellable]()
+    var callback: (@MainActor (SearchSubredditsResult) -> Void)?
     
     @Published var subredditsList: [Subreddit] = []
     @Published var after: String?
@@ -35,6 +41,8 @@ class SearchSubredditsViewModel: ISearchSubredditsViewModel {
         switch action {
             case .load(let query):
                 loadListings(query: query)
+            case.cancel:
+                Task { await callback?(.goToHome) } 
         }
     }
     
@@ -59,5 +67,4 @@ class SearchSubredditsViewModel: ISearchSubredditsViewModel {
             })
             .store(in: &cancelables)
     }
-
 }

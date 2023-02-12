@@ -23,7 +23,17 @@ class SearchSubredditsCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = AppDIContainer.shared.makeSearchSubredditsView()
-        navigationController.present(UINavigationController(rootViewController: UIHostingController(rootView: vc)), animated: true)
+        let vm = AppDIContainer.shared.makeSearchSubredditsViewModel()
+        vm.callback = { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .goToHome:
+                self.callback?(.goToHome)
+            }
+        }
+        let vc = SearchSubredditsView(vm: vm)
+        let host = UIHostingController(rootView: vc)
+        host.navigationItem.hidesBackButton = true
+        navigationController.pushViewController(host, animated: true)
     }
 }

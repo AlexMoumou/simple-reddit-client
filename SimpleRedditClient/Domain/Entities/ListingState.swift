@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HomeListingState: Equatable {
+struct ListingState: Equatable {
     let info: Info
     let posts: [Post]
 }

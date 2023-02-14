@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol IGetHomeListingsUC {
-    func execute(after: String?) -> AnyPublisher<HomeListingState, Error>
+    func execute(after: String?) -> AnyPublisher<ListingState, Error>
 }
 
 final class GetHomeListingsUC: IGetHomeListingsUC {
@@ -19,7 +19,7 @@ final class GetHomeListingsUC: IGetHomeListingsUC {
         self.repo = listingsRepo
     }
 
-    func execute(after: String?) -> AnyPublisher<HomeListingState, Error> {
-        return repo.getBestPosts(after: after)
+    func execute(after: String?) -> AnyPublisher<ListingState, Error> {
+        return repo.getPosts(context: .Home(.rising), after: after)
     }
 }

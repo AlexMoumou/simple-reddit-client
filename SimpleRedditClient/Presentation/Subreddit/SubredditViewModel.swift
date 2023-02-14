@@ -27,16 +27,17 @@ enum SubredditViewModelAction {
 }
 
 class SubredditViewModel: ISubredditViewModel {
-//    private let getListings: IGetListingsUC
+    private let getListings: IGetSubredditListingsUC
+    private let subName: String
     @Published var postsList: [Post] = []
     @Published var after: String?
     
     private var cancelables = [AnyCancellable]()
     var callback: (@MainActor (SubredditViewModelResult) -> Void)?
     
-    init() {
-//        self.getListings = getListings
-//        loadListings()
+    init(subName: String, getListings: IGetSubredditListingsUC) {
+        self.subName = subName
+        self.getListings = getListings
     }
     
     func send(action: SubredditViewModelAction) {
@@ -51,22 +52,22 @@ class SubredditViewModel: ISubredditViewModel {
     }
     
     private func loadListings() {
-//        getHomeListings.execute(after: after)
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] response in
-//                self?.postsList += response.posts
-//                self?.after = response.info.after
-//            })
-//            .store(in: &cancelables)
+        getListings.execute(subName: subName, after: after)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] response in
+                self?.postsList += response.posts
+                self?.after = response.info.after
+            })
+            .store(in: &cancelables)
     }
     
     private func refreshListings() {
-//        getHomeListings.execute(after: nil)
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] response in
-//                self?.postsList = response.posts
-//                self?.after = response.info.after
-//            })
-//            .store(in: &cancelables)
+        getListings.execute(subName: subName, after: nil)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] response in
+                self?.postsList = response.posts
+                self?.after = response.info.after
+            })
+            .store(in: &cancelables)
     }
 }

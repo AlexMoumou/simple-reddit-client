@@ -9,6 +9,31 @@ import Foundation
 import Combine
 
 protocol IListingsRepo {
-    func getBestPosts(after: String?) -> AnyPublisher<HomeListingState, Error>
     func findSubreddits(after: String?, term: String) -> AnyPublisher<SearchState, Error>
+    func getPosts(context: PostContext, after: String?) -> AnyPublisher<ListingState, Error>
+}
+
+enum PostContext {
+    case Home(SortType)
+    case Subreddit(String, SortType)
+    //TODO: Possible implementation for posts in search
+    //case Search
+}
+
+enum SortType: CustomStringConvertible {
+    case best
+    case top
+    case new
+    case rising
+    case controversial
+    
+    var description : String {
+        switch self {
+            case .best: return "best"
+            case .top: return "top"
+            case .new: return "new"
+            case .rising: return "rising"
+            case .controversial: return "new"
+        }
+    }
 }

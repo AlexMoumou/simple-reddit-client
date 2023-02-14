@@ -18,9 +18,18 @@ final class ListingsRepo {
 }
 
 extension ListingsRepo: IListingsRepo {
-    func getBestPosts(after: String?) -> AnyPublisher<HomeListingState, Error> {
-        restClient.get(RedditApiEndpoint.best(after ?? "")).map { (response: ListingDTO) in
-            HomeListingState(info: Info(before: response.data.before, after: response.data.after), posts: response.data.posts.map { $0.mapToDomain() })
+    func getPosts(context: PostContext, after: String?) -> AnyPublisher<ListingState, Error> {
+        var endpoint: RedditApiEndpoint? = nil
+        
+        switch context {
+        case .Home(let sort):
+            endpoint = RedditApiEndpoint.homePosts(sort.description, after ?? "")
+        case .Subreddit(let subName, let sort):
+            endpoint = RedditApiEndpoint.subredditPosts(subName, sort.description, after ?? "")
+        }
+        
+        return restClient.get(endpoint!).map { (response: ListingDTO) in
+            ListingState(info: Info(before: response.data.before, after: response.data.after), posts: response.data.posts.map { $0.mapToDomain() })
         }.eraseToAnyPublisher()
     }
     

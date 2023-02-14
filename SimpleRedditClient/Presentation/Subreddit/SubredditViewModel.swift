@@ -28,7 +28,7 @@ enum SubredditViewModelAction {
 
 class SubredditViewModel: ISubredditViewModel {
     private let getListings: IGetSubredditListingsUC
-    private let subName: String
+    let subName: String
     @Published var postsList: [Post] = []
     @Published var after: String?
     

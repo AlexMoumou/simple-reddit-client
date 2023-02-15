@@ -20,6 +20,6 @@ final class GetHomeListingsUC: IGetHomeListingsUC {
     }
 
     func execute(after: String?) -> AnyPublisher<ListingState, Error> {
-        return repo.getPosts(context: .Home(.rising), after: after)
+        return repo.getPosts(context: .Home(.best), after: after)
     }
 }

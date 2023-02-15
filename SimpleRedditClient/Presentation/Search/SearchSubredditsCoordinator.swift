@@ -18,7 +18,7 @@ class SearchSubredditsCoordinator: Coordinator {
     var navigationController: UINavigationController
     var callback: (@MainActor (SearchSubredditsCoordinatorResult) -> Void)?
     
-    init(navigationController: UINavigationController) {
+    @MainActor init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
@@ -39,8 +39,20 @@ class SearchSubredditsCoordinator: Coordinator {
         navigationController.pushViewController(host, animated: true)
     }
     
-    func showSubreddit(sub: Subreddit) {
-        //TODO: create and open subreddit page
+    @MainActor func showSubreddit(sub: Subreddit) {
         print("Opening subreddit with title:\(sub.title)")
+        let coordinator = SubredditCoordinator(sub: sub, navigationController: navigationController)
+        
+        coordinator.callback = { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .dismiss:
+                self.childCoordinators[.Subreddit]?.navigationController.popViewController(animated: true)
+                self.childCoordinators[.Subreddit] = nil
+            }
+        }
+        
+        coordinator.start()
+        childCoordinators[.Subreddit] = coordinator
     }
 }

@@ -32,7 +32,7 @@ enum RedditApiEndpoint: Endpoint {
 
     var url: URL {
         switch self {
-            case .subredditPosts(let subName, let sort, let after): return URL(string: "r/\(subName)/\(sort).json?after=\(after)", relativeTo: baseURL)!
+            case .subredditPosts(let subName, let sort, let after): return URL(string: "\(subName)/\(sort).json?after=\(after)", relativeTo: baseURL)!
             case .homePosts(let sort, let after): return URL(string: "\(sort).json?after=\(after)", relativeTo: baseURL)!
             case .findSubreddits(let query, let after): return URL(string: "subreddits/search.json?q=\(query)&after=\(after)", relativeTo: baseURL)!
             case .login: return URL(string: "/api/v1/authorize?client_id=\(clientID)&response_type=token&state=unique&redirect_uri=\(redirectURI)&scope=\(scopes.joined(separator: ","))", relativeTo: baseURL)!

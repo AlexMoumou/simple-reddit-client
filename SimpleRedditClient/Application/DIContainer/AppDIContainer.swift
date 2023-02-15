@@ -26,6 +26,10 @@ final class AppDIContainer {
         return SeachSubredditsUC(listingsRepo: listingsRepo)
     }
     
+    func makeGetSubredditUseCase() -> IGetSubredditListingsUC {
+        return GetSubredditListingsUC(listingsRepo: listingsRepo)
+    }
+    
     // MARK: - Repositories
     
 //    func makeListingsRepository() -> ListingsRepo {
@@ -40,6 +44,10 @@ final class AppDIContainer {
     
     func makeSearchSubredditsViewModel() -> SearchSubredditsViewModel {
         return SearchSubredditsViewModel(getSubreddits: makeSearchSubredditsUseCase())
+    }
+    
+    func makeSubredditViewModel(subname: String) -> SubredditViewModel {
+        return SubredditViewModel(subName: subname, getListings: makeGetSubredditUseCase())
     }
     
     // MARK: - Views

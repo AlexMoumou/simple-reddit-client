@@ -37,6 +37,7 @@ struct SearchSubredditsView: View {
                     .padding([.leading, .trailing], 5)
                     .cornerRadius(16)
                     .scaledToFill()
+                    .autocorrectionDisabled()
                     .onChange(of: term.debouncedText) { text in
                         vm.send(action: .load(text.sanitized))
                     }
@@ -46,7 +47,7 @@ struct SearchSubredditsView: View {
                     vm.send(action: .cancel)
                 }
             }
-        }.padding()
+        }
     }
 }
 

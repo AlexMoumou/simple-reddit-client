@@ -38,6 +38,7 @@ class SubredditViewModel: ISubredditViewModel {
     init(subName: String, getListings: IGetSubredditListingsUC) {
         self.subName = subName
         self.getListings = getListings
+        loadListings()
     }
     
     func send(action: SubredditViewModelAction) {

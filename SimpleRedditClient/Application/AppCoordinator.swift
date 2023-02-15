@@ -28,10 +28,12 @@ class AppCoordinator: Coordinator {
     }
     
     func start() {
-        showHome()
+        Task {
+            await showHome()
+        }
     }
     
-    func showHome() {
+    @MainActor func showHome() {
         let homeCoordinator = HomeCoordinator(navigationController: navigationController)
         childCoordinators[.Home] = homeCoordinator
         
@@ -46,7 +48,7 @@ class AppCoordinator: Coordinator {
         homeCoordinator.start()
     }
     
-    func showSearch() {
+    @MainActor func showSearch() {
         let searchCoordinator = SearchSubredditsCoordinator(navigationController: navigationController)
         childCoordinators[.Search] = searchCoordinator
         

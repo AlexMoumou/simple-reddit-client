@@ -13,7 +13,21 @@ struct SubredditView: View {
     
     var body: some View {
         NavigationView {
-            Text(vm.subName)
-        }
+            ScrollView {
+                LazyVStack {
+                    ForEach (vm.postsList) { post in
+                        PostView(post: post)
+                    }.listStyle(.grouped)
+                    
+                    if(vm.after != nil) {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .onAppear {
+                                vm.send(action: .load)
+                            }
+                    }
+                }
+            }
+        }.navigationTitle(vm.subName)
     }
 }

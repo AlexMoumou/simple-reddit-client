@@ -57,7 +57,7 @@ class SearchSubredditsViewModel: ISearchSubredditsViewModel {
             self.term = ""
             return
         }
-        getSubs.execute(after:self.term != query ? nil : after, term: query)
+        getSubs.execute(after: self.term != query ? nil : after, term: query)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] response in
                 if self?.term != query {

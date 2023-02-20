@@ -39,7 +39,7 @@ class HomeViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    func testVMGetsCorrectData() async throws {
+    func testVMGetsCorrectData() throws {
         getHomeListingsUC = IGetHomeListingsUCMock()
         
         getHomeListingsUC?.postListState = ListingState(info: Info(before: nil, after: nil), posts: [Post.example(), Post.example().copyWith(id: "2")])

@@ -83,6 +83,7 @@
 		5BD542A629942737000B35BF /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD542A529942737000B35BF /* AppCoordinator.swift */; };
 		5BD542A929942757000B35BF /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD542A829942757000B35BF /* Coordinator.swift */; };
 		5BDFF77129A4029300732EB8 /* SearchSubredditViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDFF77029A4029300732EB8 /* SearchSubredditViewModelTests.swift */; };
+		5BDFF77429A6899300732EB8 /* RestClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDFF77329A6899300732EB8 /* RestClientTests.swift */; };
 		5BF04DCC288D524B00DB938F /* LoginTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF04DCB288D524B00DB938F /* LoginTestView.swift */; };
 		5BF04DCE288D524D00DB938F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BF04DCD288D524D00DB938F /* Assets.xcassets */; };
 		5BF04DD1288D524D00DB938F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BF04DD0288D524D00DB938F /* Preview Assets.xcassets */; };
@@ -151,6 +152,7 @@
 		5BD542A529942737000B35BF /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		5BD542A829942757000B35BF /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		5BDFF77029A4029300732EB8 /* SearchSubredditViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSubredditViewModelTests.swift; sourceTree = "<group>"; };
+		5BDFF77329A6899300732EB8 /* RestClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClientTests.swift; sourceTree = "<group>"; };
 		5BF04DC6288D524B00DB938F /* SimpleRedditClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleRedditClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF04DCB288D524B00DB938F /* LoginTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTestView.swift; sourceTree = "<group>"; };
 		5BF04DCD288D524D00DB938F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -354,6 +356,14 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		5BDFF77229A6896F00732EB8 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				5BDFF77329A6899300732EB8 /* RestClientTests.swift */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
 		5BF04DBD288D524B00DB938F = {
 			isa = PBXGroup;
 			children = (
@@ -401,6 +411,7 @@
 		5BF04DD9288D524D00DB938F /* SimpleRedditClientTests */ = {
 			isa = PBXGroup;
 			children = (
+				5BDFF77229A6896F00732EB8 /* Infrastructure */,
 				5BD2B4DF29A28FFD00388E27 /* Utils */,
 				5BD2B4DE29A28FF000388E27 /* Presentation */,
 			);
@@ -682,6 +693,7 @@
 				5BD2B4F429A2A00E00388E27 /* AppDelegate.swift in Sources */,
 				5BD2B50529A2A0B600388E27 /* PostView.swift in Sources */,
 				5BD2B50329A2A09400388E27 /* SubredditDTO.swift in Sources */,
+				5BDFF77429A6899300732EB8 /* RestClientTests.swift in Sources */,
 				5BD2B4F829A2A01F00388E27 /* RestClient.swift in Sources */,
 				5BD2B50429A2A0A800388E27 /* PullToRefresh.swift in Sources */,
 				5BD2B4FE29A2A05600388E27 /* ListingDTO.swift in Sources */,

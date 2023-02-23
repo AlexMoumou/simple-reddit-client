@@ -10,7 +10,7 @@ import AVKit
 
 struct RedditVideoView: View {
     
-    @State var player = AVPlayer()
+    @State var player: AVPlayer? = nil
     
     let url: String
     
@@ -23,13 +23,13 @@ struct RedditVideoView: View {
                         player = AVPlayer(playerItem: playerItem)
                     }
                     .onDisappear() {
-                        player.pause()
+                        player?.pause()
                     }
     }
 }
 
 struct RedditVideoView_Previews: PreviewProvider {
     static var previews: some View {
-        RedditVideoView(url: "")
+        RedditVideoView(player: AVPlayer(), url: "")
     }
 }

@@ -18,8 +18,11 @@ struct RedditImageView: View {
                             .frame(maxWidth: .infinity)
                    },
                    placeholder: {
-            Color.gray.padding().frame(width: 300, height: 300, alignment: .center)
-                   })
+                    ProgressView()
+                        .padding()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 300, alignment: .center)
+                    })
     }
 }
 

@@ -28,7 +28,7 @@ class SearchSubredditsCoordinator: Coordinator {
             guard let self = self else { return }
             switch result {
             case .goToHome:
-                self.callback?(.goToHome)
+                self.callback!(.goToHome)
             case .goToSubreddit(let sub):
                 self.showSubreddit(sub: sub)
             }

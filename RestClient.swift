@@ -18,13 +18,23 @@ protocol IRestClient {
         -> AnyPublisher<Void, Error>
 }
 
+protocol NetworkSession {
+    func providerDataTaskPublisher(for request: URLRequest) -> AnyPublisher<URLSession.DataTaskPublisher.Output, URLError>
+}
+
+extension URLSession: NetworkSession {
+    internal func providerDataTaskPublisher(for request: URLRequest) -> AnyPublisher<URLSession.DataTaskPublisher.Output, URLError> {
+        return dataTaskPublisher(for: request).eraseToAnyPublisher()
+    }
+}
+
 // MARK: - Implementation
 
 class RestClient: IRestClient {
-    private let session: URLSession
+    private let session: NetworkSession
 
-    init(sessionConfig: URLSessionConfiguration? = nil) {
-        self.session = URLSession(configuration: sessionConfig ?? URLSessionConfiguration.default)
+    init(session: NetworkSession) {
+        self.session = session
     }
 
     func get<T, E>(_ endpoint: E) -> AnyPublisher<T, Error> where T: Decodable, E: Endpoint {
@@ -64,7 +74,7 @@ class RestClient: IRestClient {
 
         print("Starting \(method) request for \(String(describing: request))")
 
-        return session.dataTaskPublisher(for: request)
+        return session.providerDataTaskPublisher(for: request)
             .mapError { (error: Error) -> Error in
                 print("Request failed: \(String(describing: error))")
                 return RestClientErrors.requestFailed(error: error)

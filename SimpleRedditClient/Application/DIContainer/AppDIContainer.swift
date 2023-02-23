@@ -13,7 +13,7 @@ final class AppDIContainer {
     
     // MARK: - HTTP Client
     
-    lazy var client: RestClient = RestClient()
+    lazy var client: RestClient = RestClient(session: URLSession(configuration: URLSessionConfiguration.default))
     lazy var listingsRepo: ListingsRepo = ListingsRepo(restClient: client)
     
     // MARK: - Use Cases

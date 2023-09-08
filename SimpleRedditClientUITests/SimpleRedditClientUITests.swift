@@ -27,7 +27,7 @@ class SimpleRedditClientUITests: XCTestCase {
         app.launch()
         
         XCTAssert(app.staticTexts["Best Reddit Posts"].exists)
-        app.navigationBars["Best Reddit Posts"].buttons["Search"].tap()
+        app.navigationBars["Best Reddit Posts"].buttons.firstMatch.tap()
         XCTAssert(!app.staticTexts["Best Reddit Posts"].exists)
         app.navigationBars["_TtGC7SwiftUI19UIHosting"]/*@START_MENU_TOKEN@*/.buttons["Cancel"]/*[[".otherElements[\"Cancel\"].buttons[\"Cancel\"]",".buttons[\"Cancel\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         XCTAssert(app.staticTexts["Best Reddit Posts"].exists)
@@ -38,14 +38,14 @@ class SimpleRedditClientUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
         
-        app.navigationBars["Best Reddit Posts"].buttons["Search"].tap()
+        app.navigationBars["Best Reddit Posts"].buttons.firstMatch.tap()
         
         let textfield = app.navigationBars["_TtGC7SwiftUI19UIHosting"].textFields["Search"]
         XCTAssert(textfield.exists)
         textfield.tap()
         textfield.typeText("FLOOF")
         
-        let description = app.staticTexts["Floofy puffy cats and dogs and birds and chinchillas and cows and bunnies and caterpillars and anything else!"]
+        let description = app.staticTexts["r/Floof"]
         let exists = NSPredicate(format: "exists == 1")
 
         expectation(for: exists, evaluatedWith: description, handler: nil)

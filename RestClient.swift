@@ -1,8 +1,8 @@
 //
 //  RestClient.swift
-//  SimpleRedditClient
+//  AgendaApp
 //
-//  Created by Alex Moumoulides on 24/7/22.
+//  Created by Alex Moumoulidis on 7/9/23.
 //
 
 import Foundation
@@ -14,16 +14,17 @@ protocol IRestClient {
     func get<T: Decodable, E: Endpoint>(_ endpoint: E) -> AnyPublisher<T, Error>
 
     /// Creates some resource by sending a JSON body and returning empty response
-    func post<S: Encodable, E: Endpoint>(_ endpoint: E, using body: S)
-        -> AnyPublisher<Void, Error>
+    func post<S: Encodable, T: Decodable, E: Endpoint>(_ endpoint: E, using body: S)
+        -> AnyPublisher<T?, Error>
 }
 
-protocol NetworkSession {
-    func providerDataTaskPublisher(for request: URLRequest) -> AnyPublisher<URLSession.DataTaskPublisher.Output, URLError>
+protocol APIProvider {
+    typealias APIResponse = URLSession.DataTaskPublisher.Output
+    func apiResponse(for request: URLRequest) -> AnyPublisher<APIResponse, URLError>
 }
 
-extension URLSession: NetworkSession {
-    internal func providerDataTaskPublisher(for request: URLRequest) -> AnyPublisher<URLSession.DataTaskPublisher.Output, URLError> {
+extension URLSession: APIProvider {
+    func apiResponse(for request: URLRequest) -> AnyPublisher<APIResponse, URLError> {
         return dataTaskPublisher(for: request).eraseToAnyPublisher()
     }
 }
@@ -31,30 +32,35 @@ extension URLSession: NetworkSession {
 // MARK: - Implementation
 
 class RestClient: IRestClient {
-    private let session: NetworkSession
+    private let session: APIProvider
 
-    init(session: NetworkSession) {
+    init(session: APIProvider) {
         self.session = session
     }
 
     func get<T, E>(_ endpoint: E) -> AnyPublisher<T, Error> where T: Decodable, E: Endpoint {
         startRequest(for: endpoint, method: "GET", jsonBody: nil as String?)
-            .tryMap { try $0.parseJson() }
+            .tryMap {
+                try $0.parseJson()
+            }
+            .catch { error -> AnyPublisher<T, Error> in
+                return Fail<T, Error>(error: error).eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
     }
     
-    func post<S, E>(_ endpoint: E, using body: S)
-        -> AnyPublisher<Void, Error> where S: Encodable, E: Endpoint
-    {
+    func post<T, S, E>(_ endpoint: E, using body: S) -> AnyPublisher<T?, Error> where T: Decodable, E: Endpoint, S: Encodable {
         startRequest(for: endpoint, method: "POST", jsonBody: body)
-            .map { _ in () }
-            .catch { error -> AnyPublisher<Void, Error> in
+            .tryMap {
+                try $0.parseJson()
+            }
+            .catch { error -> AnyPublisher<T?, Error> in
                 switch error {
                 case RestClientErrors.noDataReceived:
                     // API's Post request doesn't return data back even with code 200
-                    return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
+                    return Just(nil).setFailureType(to: Error.self).eraseToAnyPublisher()
                 default:
-                    return Fail<Void, Error>(error: error).eraseToAnyPublisher()
+                    return Fail<T?, Error>(error: error).eraseToAnyPublisher()
                 }
             }
             .eraseToAnyPublisher()
@@ -74,17 +80,17 @@ class RestClient: IRestClient {
 
         print("Starting \(method) request for \(String(describing: request))")
 
-        return session.providerDataTaskPublisher(for: request)
+        return session.apiResponse(for: request)
             .mapError { (error: Error) -> Error in
                 print("Request failed: \(String(describing: error))")
-                return RestClientErrors.requestFailed(error: error)
+                return RestClientErrors.requestFailedWith(error: error)
             }
             // we got a response, lets see what kind of response
             .tryMap { (data: Data, response: URLResponse) in
                 let response = response as! HTTPURLResponse
                 print("Got response with status code \(response.statusCode) and \(data.count) bytes of data")
 
-                if response.statusCode == 400 {
+                if response.statusCode != 200 {
                     throw RestClientErrors.requestFailed(code: response.statusCode)
                 }
                 return InterimRestResponse(data: data, response: response)
@@ -94,6 +100,7 @@ class RestClient: IRestClient {
     private func buildRequest<T: Encodable, S: Endpoint>(endpoint: S,
                                                          method: String,
                                                          jsonBody: T?) throws -> URLRequest {
+        
         var request = URLRequest(url: endpoint.url, timeoutInterval: 10)
         request.httpMethod = method
         
